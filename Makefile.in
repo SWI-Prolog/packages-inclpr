@@ -46,7 +46,7 @@ install:	$(IA)
 		$(INSTALL_DATA) $(INCLPR_PRV) $(DESTDIR)$(INCLPRDIR)
 		$(INSTALL_DATA) $(LIBPL) $(DESTDIR)$(CLPDIR)
 		$(INSTALL_DATA) inclpr_compile.pl $(DESTDIR)$(CLPDIR)
-		(cd $(CLPDIR) && $(PL) -nodebug -O -T0 -L0 -G0 -q -f \
+		(cd $(CLPDIR) && $(PL) -O -q -f \
 		    inclpr_compile.pl -g compile -t 'halt')
 		(cd $(CLPDIR) && rm -f inclpr_compile.pl)
 
@@ -67,10 +67,10 @@ uninstall:
 		(cd $(CLPDIR) && rm -f $(LIBPL))
 		(cd $(CLPDIR) && rm -f $(addsuffix .qlf, $(basename $(LIBPL))))
 		rm -rf $(INCLPRDIR)
-		
+
 
 check:		inclpr_check.pl
-		$(PL) -O -nodebug -L0 -T0 -G0 -q -f inclpr_check.pl -g test \
+		$(PL) -O -q -f inclpr_check.pl -g test \
 		    -t 'halt(1)'
 
 
@@ -80,7 +80,7 @@ check:		inclpr_check.pl
 
 clean:
 		rm -f *~ *% config.log $(IA)
-		
+
 
 distclean:	clean
 		rm -f config.h config.cache config.status Makefile

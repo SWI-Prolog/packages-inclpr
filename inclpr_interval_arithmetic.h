@@ -1,5 +1,5 @@
-/*  
-    
+/*
+
     Part of INCLP(R)
 
     Author:        Leslie De Koninck
@@ -79,9 +79,9 @@ static foreign_t pl_ia_quadratic_inverse(term_t a, term_t b, term_t c, term_t r)
 //
 
 //
-static void p_to_c(term_t t, struct i* i);
-static void c_to_p(struct i i, term_t t);
-static void two_c_to_p(struct i i1, struct i i2, term_t t);
+static int p_to_c(term_t t, struct i* i);
+static int c_to_p(struct i i, term_t t);
+static int two_c_to_p(struct i i1, struct i i2, term_t t);
 //
 static int pos_int_canonical_interval(struct i i1);
 //static void print_interval(struct i i);

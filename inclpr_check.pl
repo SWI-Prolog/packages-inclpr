@@ -14,11 +14,11 @@
 	    incremental/1
 	]).
 
-test :- 
+test :-
 	catch(test1,_,(writeln('Unexpected exception'),halt(1))),
 	halt(0).
 
-test1 :- 
+test1 :-
 	change_standard_domain(i(-100,100)),
 	(   \+ standard_domain(i(-100,100))
 	->  writeln('Standard domain assertion error'),
@@ -52,5 +52,5 @@ test1 :-
 	    ;   writeln('Domain error'),
 	    halt(1)
 	    )
-	;   writeln('Basic constraint failure')    
+	;   writeln('Basic constraint failure')
 	).
