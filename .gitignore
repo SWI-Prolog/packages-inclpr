@@ -1,5 +1,7 @@
 *~
 *.so
+*.o
+*.dll
 autom4te.cache
 config.h
 config.log
