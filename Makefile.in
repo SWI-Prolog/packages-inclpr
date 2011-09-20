@@ -4,56 +4,37 @@
 # Copyright: LGPL (see COPYING or www.gnu.org)
 ################################################################
 
-.SUFFIXES: .tex .dvi .doc .pl
-
-SHELL=@SHELL@
-PLBASE=@PLBASE@
-PLARCH=@PLARCH@
-PL=@PL@
-XPCEBASE=$(PLBASE)/xpce
-PKGDOC=$(PLBASE)/doc/packages
-PCEHOME=../../xpce
-LIBDIR=$(PLBASE)/library
-CLPDIR=$(LIBDIR)/clp
+PACKAGE=inclpr
+include ../Makefile.defs
+CLPDIR=$(PLBASE)/library/clp
 INCLPRDIR=$(CLPDIR)/inclpr
-EXDIR=$(PKGDOC)/examples/inclpr
-SOLIB=@SOLIB@
-LD=@LD@
-COFLAGS=@COFLAGS@
-CWFLAGS=@CWFLAGS@
-CMFLAGS=@CMFLAGS@
+EXDIR=$(PKGEXDIR)/inclpr
 
-INSTALL=@INSTALL@
-INSTALL_PROGRAM=@INSTALL_PROGRAM@
-INSTALL_DATA=@INSTALL_DATA@
-INSTALL_PLARCH=@INSTALL_PLARCH@
-
-CFLAGS= $(COFLAGS) $(CWFLAGS) $(CMFLAGS)
-
+TARGETS=	inclpr_interval_arithmetic.@SO@
 INCLPR_PRV=	inclpr_core.pl inclpr_consistency.pl inclpr_inversion.pl \
 		inclpr_interval_arithmetic.pl inclpr_symbolic_processing.pl \
 		inclpr_natural_interval_extension.pl inclpr_newton.pl \
 		inclpr_ordering.pl
 LIBPL=		inclpr.pl
-IA=		inclpr_interval_arithmetic.@SO@
 EXAMPLES=	benchmarks.pl
 
-all:		$(IA)
+all:		$(TARGETS)
 
-install:	$(IA)
-		mkdir -p $(DESTDIR)$(PLBASE)/$(SOLIB)/$(INSTALL_PLARCH)
+install:	$(TARGETS)
+		mkdir -p $(DESTDIR)$(SOLIBDIR)
 		mkdir -p $(DESTDIR)$(CLPDIR)
 		mkdir -p $(DESTDIR)$(INCLPRDIR)
-		$(INSTALL) -m 755 $(IA) $(DESTDIR)$(PLBASE)/$(SOLIB)/$(INSTALL_PLARCH)
+		$(INSTALL_PROGRAM) $(TARGETS) $(DESTDIR)$(SOLIBDIR)
 		$(INSTALL_DATA) $(INCLPR_PRV) $(DESTDIR)$(INCLPRDIR)
 		$(INSTALL_DATA) $(LIBPL) $(DESTDIR)$(CLPDIR)
 		$(INSTALL_DATA) inclpr_compile.pl $(DESTDIR)$(CLPDIR)
-		(cd $(CLPDIR) && $(PL) -O -q -f \
-		    inclpr_compile.pl -g compile -t 'halt')
-		(cd $(CLPDIR) && rm -f inclpr_compile.pl)
+		$(PL) -C $(DESTDIR)$(CLPDIR) --home=../.. -O -q -f \
+		    inclpr_compile.pl -g compile,halt -t 'halt(1)'
+		rm -f $(DESTDIR)$(CLPDIR)/inclpr_compile.pl
+		$(MKINDEX)
 
-%.@SO@: %.c
-		$(LD) -shared $(CFLAGS) -o $@ $< -lm
+inclpr_interval_arithmetic.@SO@: inclpr_interval_arithmetic.o
+		$(LD) $(LDSOFLAGS) -o $@ inclpr_interval_arithmetic.o @LIBS@
 
 rpm-install:	install
 

@@ -1,5 +1,5 @@
-/*  
-    
+/*
+
     Part of INCLP(R)
 
     Author:        Leslie De Koninck
@@ -29,7 +29,15 @@
     the GNU General Public License.
 */
 
-compile :- 
+% We need this to run Prolog from the development tree, loading .ddl
+% files from the installed system
+
+:- if(current_prolog_flag(windows,true)).
+:- multifile user:file_search_path/2.
+user:file_search_path(foreign, swi(bin)).
+:- endif.
+
+compile :-
 	qcompile(inclpr/inclpr_core),
 	qcompile(inclpr),
 	qcompile(inclpr/inclpr_consistency),
