@@ -10,7 +10,7 @@ CLPDIR=$(PLBASE)/library/clp
 INCLPRDIR=$(CLPDIR)/inclpr
 EXDIR=$(PKGEXDIR)/inclpr
 
-TARGETS=	inclpr_interval_arithmetic.@SO@
+TARGETS=	inclpr.@SO@
 INCLPR_PRV=	inclpr_core.pl inclpr_consistency.pl inclpr_inversion.pl \
 		inclpr_interval_arithmetic.pl inclpr_symbolic_processing.pl \
 		inclpr_natural_interval_extension.pl inclpr_newton.pl \
@@ -33,8 +33,8 @@ install:	$(TARGETS)
 		rm -f $(DESTDIR)$(CLPDIR)/inclpr_compile.pl
 		$(MKINDEX)
 
-inclpr_interval_arithmetic.@SO@: inclpr_interval_arithmetic.o
-		$(LD) $(LDSOFLAGS) -o $@ inclpr_interval_arithmetic.o @LIBS@
+inclpr.@SO@:	inclpr.o
+		$(LD) $(LDSOFLAGS) -o $@ inclpr.o @LIBS@
 
 rpm-install:	install
 

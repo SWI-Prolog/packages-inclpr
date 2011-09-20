@@ -1,5 +1,5 @@
-/*  
-    
+/*
+
     Part of INCLP(R)
 
     Author:        Leslie De Koninck
@@ -61,13 +61,13 @@
 
 % Module implementing the Prolog part of interval arithmetic.
 
-:- load_foreign_library(foreign(inclpr_interval_arithmetic)).
+:- load_foreign_library(foreign(inclpr)).
 
 % interval(I)
 %
 % Succeeds if <I> is an interval.
 
-interval(I) :- 
+interval(I) :-
 	nonvar(I),
 	functor(I,i,2).
 
@@ -134,7 +134,7 @@ ia_eval(Exp,G,Res) :-
 		    arg(2,Res,Arg2Res),
 		    arg(3,Res,Arg3Res)
 		)
-	    )	
+	    )
 	;   Res = Exp,
 	    G = 0
 	).
@@ -157,7 +157,7 @@ ia_eval_g_2(A+B,CL,CR) :-
 	ia_eval_g_2(A,AL,AR),
 	ia_eval_g_2(B,BL,BR),
 	ia_sum_2(AL,AR,BL,BR,CL,CR).
-ia_eval_g_2(A-B,CL,CR) :- 
+ia_eval_g_2(A-B,CL,CR) :-
 	ia_eval_g_2(A,AL,AR),
 	ia_eval_g_2(B,BL,BR),
 	ia_difference_2(AL,AR,BL,BR,CL,CR).
@@ -168,24 +168,24 @@ ia_eval_g_2(A*B,CL,CR) :-
 	ia_eval_g_2(A,AL,AR),
 	ia_eval_g_2(B,BL,BR),
 	ia_product_2(AL,AR,BL,BR,CL,CR).
-ia_eval_g_2(A/B,CL,CR) :- 
+ia_eval_g_2(A/B,CL,CR) :-
 	ia_eval_g_2(A,AL,AR),
 	ia_eval_g_2(B,BL,BR),
 	ia_quotient_2(AL,AR,BL,BR,CL,CR).
-ia_eval_g_2(A**B,CL,CR) :- 
+ia_eval_g_2(A**B,CL,CR) :-
 	ia_eval_g_2(A,AL,AR),
 	ia_eval_g_2(B,BL,BR),
 	BL =:= BR,
 	ia_power_2(AL,AR,BR,CL,CR).
-ia_eval_g_2(A\/B,CL,CR) :- 
+ia_eval_g_2(A\/B,CL,CR) :-
 	ia_eval_g_2(A,AL,AR),
 	ia_eval_g_2(B,BL,BR),
 	ia_union_2(AL,AR,BL,BR,CL,CR).
-ia_eval_g_2(A/\B,CL,CR) :- 
+ia_eval_g_2(A/\B,CL,CR) :-
 	ia_eval_g_2(A,AL,AR),
 	ia_eval_g_2(B,BL,BR),
 	ia_intersection_2(AL,AR,BL,BR,CL,CR).
-ia_eval_g_2(root(A,B),CL,CR) :- 
+ia_eval_g_2(root(A,B),CL,CR) :-
 	ia_eval_g_2(A,AL,AR),
 	ia_eval_g_2(B,BL,BR),
 	BL =:= BR,
@@ -262,7 +262,7 @@ interval_new_class(X,C) :- ia_class(X,C).
 % in interval arithmetic to <Left> and <Right> if both <Left> and <Right> are
 % intervals. Otherwise <Result> = <Operator>(<Left>,<Right>).
 
-ia_binary_operator(Op,L,R,Res) :- 
+ia_binary_operator(Op,L,R,Res) :-
 	(   interval(L),
 	    interval(R)
 	->  ia_binary_operator_g(Op,L,R,Res)
@@ -324,7 +324,7 @@ ia_binary_operator_g(root,L,R,Res) :- ia_root(L,R,Res).
 
 ia_ternary_operator_g(spower,i(AL,AR),i(BL,BR),i(CL,CR),i(DL,DR)) :-
 	CL =:= CR,
-	ia_slope_power_2(AL,AR,BL,BR,CR,DL,DR). 
+	ia_slope_power_2(AL,AR,BL,BR,CR,DL,DR).
 
 % ia_unary_operator_g(Operator,Argument,Result)
 %
@@ -341,7 +341,7 @@ ia_unary_operator_g((-),X,Res) :- ia_additive_inverse(X,Res).
 % term u(X,Y) with <X> and <Y> intervals or union of intervals.
 
 :- index(interval_intersection(1,1,0)).
-interval_intersection(i(A,B),i(C,D),I) :- 
+interval_intersection(i(A,B),i(C,D),I) :-
 	ia_intersection(i(A,B),i(C,D),I).
 interval_intersection(u(A,B),i(C,D),I) :-
 	(   interval_intersection(A,i(C,D),AI)
@@ -366,7 +366,7 @@ interval_intersection(u(A,B),u(C,D),I) :-
 % and <Right>. <Left> and <Right> are either intervals or a union of intervals.
 
 :- index(interval_union(1,1,0)).
-interval_union(i(A,B),i(C,D),U) :- 
+interval_union(i(A,B),i(C,D),U) :-
 	ia_union(i(A,B),i(C,D),U).
 interval_union(u(A,B),i(C,D),U) :-
 	interval_union(A,i(C,D),AU),
@@ -443,7 +443,7 @@ minimal_interval(lower,X,Int) :- pos_interval(X,Int).
 % <Interval> where the lower bound of <MinimalInterval> is equal to the lower
 % bound of <Interval>.
 
-pos_interval(i(L,_),i(L,U)) :- 
+pos_interval(i(L,_),i(L,U)) :-
 	P is abs(L),
 	(
 	  P > 1e-310 ->
@@ -467,7 +467,7 @@ neg_interval(i(_,U),i(L,U)) :-
 	    L is U-(N*1e-11)
 	;
 	    L is U-1e-310
-	). 
+	).
 
 % accepted_solution_domain(Interval)
 %
