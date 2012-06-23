@@ -34,7 +34,7 @@ install:	$(TARGETS)
 		$(MKINDEX)
 
 inclpr.@SO@:	inclpr.o
-		$(LD) $(LDSOFLAGS) -o $@ inclpr.o @LIBS@
+		$(LD) $(LDSOFLAGS) -o $@ inclpr.o @LIBS@ $(LIBPLSO)
 
 rpm-install:	install
 
