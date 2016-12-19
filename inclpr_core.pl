@@ -286,7 +286,7 @@ state_11 @ create_state <=> state_normal.
 % result of unification (a variable or a number). When 4 such unify_trigger/1
 % constraints are available, i.e. one per module, then all necessary checks are
 % done and we can proceed to the unification handling rules. The argument of
-% unify_trigger/1 is used to determine whether variables have to be scheduled.  
+% unify_trigger/1 is used to determine whether variables have to be scheduled.
 
 % Unification hook for the inclpr_domain attribute:
 % If unifying a variable with a number, it is checked whether the domain of the
@@ -312,9 +312,9 @@ inclpr_domain:attr_unify_hook(Domain,Y) :-
 % such constraint is added for each new variable and the rules can only fire
 % after unification, either with another variable, or with a number.
 
-unify_trigger_1 @ inclpr_core_trigger(V) \ inclpr_core_trigger(V) <=> 
+unify_trigger_1 @ inclpr_core_trigger(V) \ inclpr_core_trigger(V) <=>
 	unify_trigger(V).
-unify_trigger_2 @ inclpr_core_trigger(N) <=> 
+unify_trigger_2 @ inclpr_core_trigger(N) <=>
 	number(N) |
 	unify_trigger(N).
 
@@ -323,7 +323,7 @@ unify_trigger_2 @ inclpr_core_trigger(N) <=>
 % unification of two variables occurred.
 
 unify_trigger_3 @ unify_trigger(X), unify_trigger(X), unify_trigger(X),
-    unify_trigger(X) <=> 
+    unify_trigger(X) <=>
 	true |
 	change_state(unify),
 	(   var(X)
@@ -367,7 +367,7 @@ inclpr_aliases:attr_unify_hook(cd(C,D),Y) :-
 % extension). It also creates a inclpr_core_trigger/1 constraint for
 % unification detection. Does nothing if the variable already has aliases.
 
-create_aliases(X) :- 
+create_aliases(X) :-
 	(   get_attr(X,inclpr_aliases,_)
 	->  true
 	;   put_attr(X,inclpr_aliases,cd(_,_)),
@@ -405,7 +405,7 @@ get_aliases(X,Vid) :- get_attr(X,inclpr_aliases,Vid).
 % Prepares a new variable by adding it to the ordering, giving it aliases and
 % giving it an initial domain.
 
-create_new_var(X) :- 
+create_new_var(X) :-
 	new(X),
 	create_aliases(X),
 	create_domain(X).
@@ -413,10 +413,10 @@ create_new_var(X) :-
 % These rules generate a new unique identifier for a new constraint. Constraint
 % identifiers are used to speedup matching constraints.
 
-constraint_id_1 @ new_constraint_id(ID), max_constraint_id(IDMax) <=> 
+constraint_id_1 @ new_constraint_id(ID), max_constraint_id(IDMax) <=>
 	ID is IDMax + 1,
 	max_constraint_id(ID).
-constraint_id_2 @ new_constraint_id(ID) <=> 
+constraint_id_2 @ new_constraint_id(ID) <=>
 	ID = 0,
 	max_constraint_id(0).
 	
@@ -436,7 +436,7 @@ constraint_id_2 @ new_constraint_id(ID) <=>
 % inclusive_schedule_vars(Var)
 %
 % Schedules variable <Var> and all its connected variables for consistency
-% checks for all interval extensions. 
+% checks for all interval extensions.
 
 inclusive_schedule_1 @ inclusive_schedule_vars(Var) <=>
 	inclusive_schedule_vars(n,Var).
@@ -489,14 +489,14 @@ schedule_constraint_2 @ schedule_constraint_vars(_,_) <=> true.
 % <NewList> = <List>.
 
 mem_app([],X,[X]).
-mem_app([H|T],X,[H|T2]) :- 
+mem_app([H|T],X,[H|T2]) :-
 	(   X == H
 	->  T = T2
 	;   mem_app(T,X,T2)
 	).
 
 % queue/2 constraints contain a queue of variables that are scheduled for
-% consistency checks for a given interval extension. 
+% consistency checks for a given interval extension.
 
 % Rule representing an explicit functional dependency: one queue per interval
 % extension.
@@ -655,7 +655,7 @@ schedule_phases <=>
 
 active_phase(AP) #P \ get_phase(GP) <=>
 	GP = AP pragma passive(P).
-get_phase(_) <=> fail. 
+get_phase(_) <=> fail.
 
 % set_phase(Phase)
 %
@@ -709,7 +709,7 @@ cns(Cons,Inc) :-
 %
 % Prepares the processing of the constraint <Constraint> without changing the
 % system to normal state. (see state_normal/0 and state_unify/0). <Probe> is
-% currently not used. The constraint variables are listed in <Variables> and 
+% currently not used. The constraint variables are listed in <Variables> and
 % have been processed as new variables by create_new_var/1.
 
 new_constraint(X=Y,Vars,Prb) <=>
@@ -760,7 +760,7 @@ new_constraint(X=<Y,Vars,Prb) <=>
 	->  X =< Y
 	;   prepared_constraint(X=<Y,Vars,Prb)
 	).
-new_constraint(F,_,_) <=> 
+new_constraint(F,_,_) <=>
 	throw(error(syntax_error('Illegal constraint relation'),
 	    context({}/1,F))).
 
@@ -846,7 +846,7 @@ prepared_constraint(Cons,_,_) <=>
 %	variables are removed in other lists.
 % Rule unify_trigger_list_2 works for the unification of a variable with a
 % 	number: the trigger list for the unified variable is removed and the
-%	number is removed in other lists. 
+%	number is removed in other lists.
 
 unify_trigger_list_1 @ state_unify \ trigger_list(V,L1) #P1,
     trigger_list(V,L2) #P2 <=>
@@ -862,10 +862,10 @@ unify_trigger_list_2 @ state_unify \ trigger_list(N,L) #P1 <=>
 	pragma passive(P1).
 
 % using trigger lists for variable scheduling
-    
+
 trigger_list(Var,List) #P1 \ schedule(Phase,Var) <=>
 	schedule_vars(Phase,List)
-	pragma passive(P1). 
+	pragma passive(P1).
 
 % tl_remove_doubles(Variables,Variable)
 %
@@ -896,7 +896,7 @@ tl_remove_numbers_2 @ tl_remove_numbers([H|T]), trigger_list(H,L) #P1 <=>
 % Connect the variables in <Variables> with eachother by adding all other
 % variables to the trigger list of each variable.
 
-tl_connect_vars(Varlist) :- 
+tl_connect_vars(Varlist) :-
 	sv_create(Varlist,SortedVarlist),
 	tl_connect_vars(SortedVarlist,SortedVarlist).
 
@@ -904,7 +904,7 @@ tl_connect_vars(Varlist) :-
 %
 % Adds the variables in <Variables> to each variable <Variable> in <List>
 % except for variable <Variable>. Initially, <List> and <Variables> are equal,
-% but <List> is consumed and <Variables> remains. 
+% but <List> is consumed and <Variables> remains.
 
 tl_connect_1 @ tl_connect_vars([],_) <=> true.
 tl_connect_2 @ tl_connect_vars([H|T],L1), trigger_list(H,L2) #P1 <=>
@@ -914,7 +914,7 @@ tl_connect_2 @ tl_connect_vars([H|T],L1), trigger_list(H,L2) #P1 <=>
 	tl_connect_vars(T,L1)
 	pragma passive(P1).
 
-% Unification handling for the natural interval extension: 
+% Unification handling for the natural interval extension:
 %
 % - Variable list of the constraint function has to be updated (duplicates or
 %	number removed)
@@ -927,14 +927,14 @@ tl_connect_2 @ tl_connect_vars([H|T],L1), trigger_list(H,L2) #P1 <=>
 % - Inverted constraints and unification of two variables: create projection
 %	constraints
 
-unify_n_i_e_var @ state_unify, n_i_e_p_c(ID,_,V) #passive \ 
+unify_n_i_e_var @ state_unify, n_i_e_p_c(ID,_,V) #passive \
     n_i_e_p_c(ID,_,V) #passive, varlist_f(ID,n,BFV) #passive <=>
 	term_variables(BFV,NewBFV),
 	varlist_f(ID,n,NewBFV),
 	unify_check_varlist_d_var(ID,n,V).
 unify_n_i_e_number @ state_unify \ n_i_e_p_c(ID,_,N) #passive,
     varlist_f(ID,n,BFV) #passive <=>
-	number(N) | 
+	number(N) |
 	term_variables(BFV,NewBFV),
 	varlist_f(ID,n,NewBFV),
 	unify_check_varlist_d_number(ID,n),
@@ -969,14 +969,14 @@ unify_n_i_e_d_num_3 @ unify_check_varlist_d_number(_,_) <=> true.
 % Merging partial derivatives (var=var) / deleting partial derivative (number)
 
 unify_n_i_e_pd_var @ state_unify \ n_i_e_p_c_pd(ID,DBF1,V) #passive,
-    n_i_e_p_c_pd(ID,DBF2,V) #passive <=> 
+    n_i_e_p_c_pd(ID,DBF2,V) #passive <=>
 	n_i_e_p_c_pd(ID,(DBF1)+(DBF2),V).
 unify_n_i_e_pd_num @ state_unify \ n_i_e_p_c_pd(_,_,N) #passive <=>
 	number(N) | true.
 
 % Inverted constraints: F = 0 -> X = Fx and Y = Fy and X = Y
 % After unification, the number of occurrences of the unified variable has
-% increased from 1 to 2. 
+% increased from 1 to 2.
 unify_n_i_e_inv_inv @ state_unify \ inverted_constraint(ID,n,_,V) #passive,
     inverted_constraint(ID,n,_,V) #passive, varlist_f(ID,n,_) #passive,
     constraint_function(ID,F) #passive <=>
@@ -1079,7 +1079,7 @@ solve :-
 % half is chosen as the new domain for <Variable>. On backtracking, the upper
 % half is tried. The variable <Loop> is instantiated to `false' when splitting
 % is done. It is used to prevent infinite looping if all domains satisfy the
-% precision criterion. 
+% precision criterion.
 
 branch(Var,Loop) :-
 	(   var(Var)
@@ -1144,7 +1144,7 @@ upper_domain @ upper_domain(Var) <=>
 % otherwise <Fail> will be unified with the atom `fail'. Constraints that
 % cannot cause more domain narrowing are removed from the constraint store.
 
-chk_sol(Fail), constraint_function(ID,_) ==> 
+chk_sol(Fail), constraint_function(ID,_) ==>
 	check_id(ID,n,Fail).
 chk_sol(_) <=> true.
 
@@ -1155,7 +1155,7 @@ chk_sol(_) <=> true.
 
 n_i_e_p_c(_,_,V) \ in_cons(V) <=> true.
 inverted_constraint(_,_,_,V) \ in_cons(V) <=> true.
-in_cons(_) <=> fail. 
+in_cons(_) <=> fail.
 
 % check_id(ID,IE,Fail)
 %
@@ -1180,7 +1180,7 @@ inverted_constraint(ID,n,BF,_), varlist_f(ID,n,BFV) \ check_id(ID,n,Fail) <=>
 	    ;   Fail = fail
 	    ).
 check_id(_,_,_) <=> true.
-	    
+	
 % rem_cons(ID,IE)
 %
 % Removes the CHR constraints related to the constraint with identifier <ID>
@@ -1232,7 +1232,7 @@ check_inverted @ state_normal, active_phase(n), active_var(n,V),
 % projection constraint: we need projection and partial derivative and
 % relation (=<, = or >=)
 check_n_i_e @ state_normal, active_phase(n), active_var(n,V),
-    n_i_e_p_c(ID,BF,V) #passive, varlist_f(ID,n,BFV) #passive, 
+    n_i_e_p_c(ID,BF,V) #passive, varlist_f(ID,n,BFV) #passive,
     n_i_e_p_c_pd(ID,DBF,V) #passive, varlist_d(ID,n,V,DBFV) #passive,
     constraint_relation(ID,R) #passive ==>
 	true |
@@ -1249,12 +1249,12 @@ check_n_i_e @ state_normal, active_phase(n), active_var(n,V),
 	;   catch(nb_getval(inclpr_result,Result),_,fail),
 	    nb_delete(inclpr_result),
 	    (   Result = sd(Domain)
-	    ->  set_domain(V,Domain),    
+	    ->  set_domain(V,Domain),
 		schedule(n,V)
 	    ;   true
 	    )
 	).
-	    
+	
 % n_i_e_prepare(ID,Function)
 %
 % Prepares the projection constraints (>1 occurrence of a variable) and

@@ -113,7 +113,7 @@ linked_unify_2 @ linked(_,_,X,OX1), linked(X,OX1,_,_) \
     linked(L,OL,X,OX2), linked(X,OX2,R,OR) <=>
 	OX1 > OX2 |
 	linked(L,OL,R,OR),
-	unify_trigger(X). 
+	unify_trigger(X).
 
 % Rules handling unification of a variable with a number for the linked/4
 % constraints:
@@ -150,11 +150,11 @@ after_2 @ linked(X,OX,_,_), linked(Y,OY,_,_) \ after(X,Y) <=> OX > OY.
 %	present.
 
 new_1 @ linked(X,_,_,_) \ new(X) <=> true.
-new_1 @ new(X), linked(L,OL,top,Max) <=> 
+new_1 @ new(X), linked(L,OL,top,Max) <=>
 	NewMax is Max + 1,
 	linked(L,OL,X,Max),
 	linked(X,Max,top,NewMax).
-new_2 @ new(X) <=> 
+new_2 @ new(X) <=>
 	linked(bottom,0,X,1),
 	linked(X,1,top,2).
 
@@ -201,7 +201,7 @@ sv_try_remove(L1,Var,L2) :-
 %
 % Removes an occurrence of <Variable> from sorted variable list <ListIn> and
 % returns the resulting sorted variable list in <ListOut>. Fails if <ListIn>
-% does not contain <Variable>. 
+% does not contain <Variable>.
 
 sv_remove([H|T],Var,L) :-
 	(   H == Var

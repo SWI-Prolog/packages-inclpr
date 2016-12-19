@@ -67,7 +67,7 @@
 % nr(d):   no domain reduction because the result was larger than the initial
 %	   domain.
 % nr(f):   no domain reduction because we failed to apply the Interval Newton
-%	   operator because of a shared zero between the function range for 
+%	   operator because of a shared zero between the function range for
 %	   <Variable> in the center of <Interval> and the derivative range for
 %	   <Variable> in <Interval>.
 % r(D):    domain reduction: the reduced domain is returned in <D>.

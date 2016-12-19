@@ -106,7 +106,7 @@ n_i_e_create_base_form_int(Term,BaseForm) :-
 % the partial evaluation are calculated. Partial evaluations are used to speed
 % up consistency checks and domain narrowing, since only one variable changes
 % its domain for these operations.
- 
+
 n_i_e_create_partial_evaluation(BaseForm,BaseFormVars,PartialEvaluation,Var) :-
 	instantiate_nat(BaseFormVars,Var),
 	ia_eval(BaseForm,PartialEvaluation).

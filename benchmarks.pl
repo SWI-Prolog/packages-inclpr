@@ -56,7 +56,7 @@ broyden_banded(N) :-
 	time(Call),
 	write_domains(Names,Vars).
 
-feigenbaum(N) :- 
+feigenbaum(N) :-
 	change_standard_domain(i(0.0,1.0e02)),
 	change_incremental(false),
 	feigenbaum(N,Call,Names,Vars),
@@ -216,7 +216,7 @@ write_domains(Names,Vars) :-
 	maplist(write_domain,Names,Vars),
 	nl.
 
-write_domain(Name,Var) :- 
+write_domain(Name,Var) :-
 	get_domain(Var,i(L,U)),
 	writef('%12R =< %w =< %12R\n',[L,Name,U]).
 

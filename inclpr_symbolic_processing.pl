@@ -320,7 +320,7 @@ rewrite_binary(/,X,Y,Z) :-
 	    Yr = -Ym
 	->  Z = -(Xr / Ym)
 	;   Z = Xr / Yr
-	). 
+	).
 rewrite_binary(^,X,N,Z) :- rewrite_binary(**,X,N,Z).
 rewrite_binary(**,X,N,Z) :-
 	integer(N),
