@@ -29,7 +29,7 @@ install:	$(TARGETS)
 		$(INSTALL_DATA) $(LIBPL) $(DESTDIR)$(CLPDIR)
 		$(INSTALL_DATA) inclpr_compile.pl $(DESTDIR)$(CLPDIR)
 		$(PL) -C $(DESTDIR)$(CLPDIR) --home=../.. -O -q -f \
-		    inclpr_compile.pl -g compile,halt -t 'halt(1)'
+		    inclpr_compile.pl -g compile -t halt
 		rm -f $(DESTDIR)$(CLPDIR)/inclpr_compile.pl
 		$(MKINDEX)
 
@@ -54,7 +54,7 @@ uninstall:
 
 check:		inclpr_check.pl
 		$(PL) -O -q -f inclpr_check.pl -g test \
-		    -t 'halt(1)'
+		    -t halt
 
 
 ################################################################
