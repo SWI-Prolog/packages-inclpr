@@ -681,9 +681,9 @@ static struct i ia_product(struct i i1, struct i i2)
 		case 'n':
 		    fesetround(FE_DOWNWARD);
 		    i.l = i1.r*i2.r;
-    		    fesetround(FE_UPWARD);
+		    fesetround(FE_UPWARD);
 		    i.r = i1.l*i2.l;
-    		    break;
+		    break;
 		case 'z':
 		    fesetround(FE_DOWNWARD);
 		    i.l = i1.l*i2.r;
@@ -1056,7 +1056,7 @@ static char ia_class(struct i i)
 static int contains(struct i i, double d)
 {
     if (d == 0)
-    	return (copysign(1.0,i.l) == -1.0) && (copysign(1.0,i.r) == 1.0);
+	return (copysign(1.0,i.l) == -1.0) && (copysign(1.0,i.r) == 1.0);
     else
 	return (i.l <= d) && (i.r >= d);
 }
@@ -1073,7 +1073,7 @@ static int finite_interval(struct i i)
     return finite(i.l) && finite(i.r);
 }
 
-install_t install_inclpr_interval_arithmetic()
+install_t install_inclpr()
 {
     PL_register_foreign("ia_sum",3,pl_ia_sum,0);
     PL_register_foreign("ia_sum_2",6,pl_ia_sum_2,0);
