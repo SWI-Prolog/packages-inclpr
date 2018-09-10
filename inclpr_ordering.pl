@@ -119,7 +119,7 @@ linked_unify_2 @ linked(_,_,X,OX1), linked(X,OX1,_,_) \
 % constraints:
 %
 % Rule linked_unify_3 converts L-N-R into L-R.
-	
+
 linked_unify_3 @ linked(L,OL,N,_), linked(N,_,R,OR) <=>
 	number(N) |
 	linked(L,OL,R,OR),
@@ -255,13 +255,11 @@ sv_remove_number([H|T],L) :-
 	;   L = [H|T2],
 	    sv_remove_number(T,T2)
 	).
-	
+
 % sv_merge(ListIn1,ListIn2,MergedList)
 %
 % Merges the sorted duplicate free variable lists <ListIn1> and <ListIn2> into
 % the duplicate free sorted variable list <MergedList>.
-
-:- index(sv_merge(1,1)).
 
 sv_merge([H1|T1],[H2|T2],[H3|T3]) :-
 	(   before(H1,H2)

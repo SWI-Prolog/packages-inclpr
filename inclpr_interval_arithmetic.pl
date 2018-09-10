@@ -309,8 +309,6 @@ ia_ternary_operator(Op,A,B,C,Res) :-
 % Interval <Result> is the result of applying the binary operator <Operator>
 % in interval arithmetic to intervals <Left> and <Right>.
 
-:- hash(ia_binary_operator/4).
-
 ia_binary_operator_g((+) ,L,R,Res) :- ia_sum(L,R,Res).
 ia_binary_operator_g((-) ,L,R,Res) :- ia_difference(L,R,Res).
 ia_binary_operator_g((*) ,L,R,Res) :- ia_product(L,R,Res).
@@ -343,7 +341,6 @@ ia_unary_operator_g((-),X,Res) :- ia_additive_inverse(X,Res).
 % union of intervals in <Intersection>. The union operator is represented as a
 % term u(X,Y) with <X> and <Y> intervals or union of intervals.
 
-:- index(interval_intersection(1,1,0)).
 interval_intersection(i(A,B),i(C,D),I) :-
 	ia_intersection(i(A,B),i(C,D),I).
 interval_intersection(u(A,B),i(C,D),I) :-
@@ -368,7 +365,6 @@ interval_intersection(u(A,B),u(C,D),I) :-
 % Returns in <Union> the smallest interval containing all intervals in <Left>
 % and <Right>. <Left> and <Right> are either intervals or a union of intervals.
 
-:- index(interval_union(1,1,0)).
 interval_union(i(A,B),i(C,D),U) :-
 	ia_union(i(A,B),i(C,D),U).
 interval_union(u(A,B),i(C,D),U) :-
