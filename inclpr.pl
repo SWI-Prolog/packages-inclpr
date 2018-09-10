@@ -42,7 +42,7 @@
 	solve/0,
 	get_domain/2
     ]).
-:- use_module(inclpr/inclpr_core,
+:- use_module(library(inclpr/inclpr_core),
     [
 	change_incremental/1,
 	incremental/1,
