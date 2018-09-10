@@ -1,7 +1,6 @@
-:- module(test,
-	[
-	    test/0
-	]).
+:- module(test_inclpr,
+	  [ test_inclpr/0
+	  ]).
 %:- asserta(user:file_search_path(library, '.')).
 :- use_module(library(inclpr),
 	[
@@ -14,9 +13,8 @@
 	    incremental/1
 	]).
 
-test :-
-	catch(test1,_,(writeln('Unexpected exception'),halt(1))),
-	halt(0).
+test_inclpr :-
+	catch(test1,_,(writeln('Unexpected exception'),halt(1))).
 
 test1 :-
 	change_standard_domain(i(-100,100)),
