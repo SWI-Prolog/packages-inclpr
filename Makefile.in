@@ -52,9 +52,8 @@ uninstall:
 		rm -rf $(INCLPRDIR)
 
 
-check:		inclpr_check.pl
-		$(PL) -O -q -f inclpr_check.pl -g test \
-		    -t halt
+check:		test_inclpr.pl
+		$(PL) -O -q -f test_inclpr.pl -g test_inclpr -t halt
 
 
 ################################################################
