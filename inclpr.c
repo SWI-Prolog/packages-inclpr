@@ -386,9 +386,9 @@ static foreign_t pl_ia_quadratic_inverse(term_t a, term_t b, term_t c, term_t r)
     struct i ia;
     struct i ib;
     struct i ic;
-    if ( !p_to_c(a,&ia) &&
-	 !p_to_c(b,&ib) &&
-	 !p_to_c(c,&ic) )
+    if ( !(p_to_c(a,&ia) &&
+	   p_to_c(b,&ib) &&
+	   p_to_c(c,&ic)) )
       return FALSE;
     struct i ir1;
     struct i ir2;
@@ -1070,7 +1070,7 @@ static int valid_interval(struct i i)
 }
 static int finite_interval(struct i i)
 {
-    return finite(i.l) && finite(i.r);
+    return isfinite(i.l) && isfinite(i.r);
 }
 
 install_t install_inclpr()
