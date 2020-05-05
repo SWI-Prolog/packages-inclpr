@@ -8,6 +8,7 @@ set(INCLPR_PRV inclpr_core.pl inclpr_consistency.pl inclpr_inversion.pl
     inclpr_natural_interval_extension.pl inclpr_newton.pl inclpr_ordering.pl)
 
 swipl_plugin(inclpr_priv
+	     NOINDEX
 	     PL_LIB_SUBDIR clp/inclpr
 	     PL_LIBS ${INCLPR_PRV})
 
