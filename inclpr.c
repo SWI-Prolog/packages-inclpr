@@ -765,8 +765,8 @@ static struct i ia_quotient(struct i i1, struct i i2)
 		    i.r = i1.l/i2.r;
 		    break;
 		case 'z':
-		    i.l = -1.0/0.0;
-		    i.r = 1.0/0.0;
+		    i.l = -INFINITY;
+		    i.r = INFINITY;
 		    break;
 		default:
 		    fesetround(FE_DOWNWARD);
@@ -786,8 +786,8 @@ static struct i ia_quotient(struct i i1, struct i i2)
 		    i.r = i1.l/i2.r;
 		    break;
 		case 'z':
-		    i.l = -1.0/0.0;
-		    i.r = 1.0/0.0;
+		    i.l = -INFINITY;
+		    i.r = INFINITY;
 		    break;
 		default:
 		    fesetround(FE_DOWNWARD);
@@ -807,8 +807,8 @@ static struct i ia_quotient(struct i i1, struct i i2)
 		    i.r = i1.l/i2.l;
 		    break;
 		case 'z':
-		    i.l = -1.0/0.0;
-		    i.r = 1.0/0.0;
+		    i.l = -INFINITY;
+		    i.r = INFINITY;
 		    break;
 		default:
 		    fesetround(FE_DOWNWARD);
@@ -873,8 +873,8 @@ static int ia_root(struct i i1, int n, struct i* i2, struct i* i3)
     {
 	if (contains(i1,1))
 	{
-	    i2->l = -1.0/0.0;
-	    i2->r = 1.0/0.0;
+	    i2->l = -INFINITY;
+	    i2->r = INFINITY;
 	    return 1;
 	}
 	else return 0;

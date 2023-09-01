@@ -33,10 +33,6 @@
 */
 
 struct i{double l; double r;};
-//
-double fmin(double d1, double d2);
-double fmax(double d1, double d2);
-double trunc(double d1);
 
 static foreign_t pl_ia_sum(term_t t1, term_t t2, term_t t3);
 static foreign_t pl_ia_sum_2(term_t t1l, term_t t1r, term_t t2l, term_t t2r,
