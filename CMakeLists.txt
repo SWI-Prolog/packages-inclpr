@@ -9,21 +9,11 @@ set(INCLPR_PRV inclpr_core.pl inclpr_consistency.pl inclpr_inversion.pl
 
 swipl_plugin(inclpr_priv
 	     NOINDEX
-	     PL_LIB_SUBDIR clp/inclpr
+	     PL_LIB_SUBDIR inclpr
 	     PL_LIBS ${INCLPR_PRV})
 
 swipl_plugin(inclpr
 	     C_SOURCES inclpr.c
-	     PL_LIB_SUBDIR clp
 	     PL_LIBS inclpr.pl)
 
 swipl_examples(benchmarks.pl)
-
-# Doesn't work as this is not enough to make chr run from the
-# build directory
-if(0)
-test_libs(
-    inclpr
-    PACKAGES chr
-    PARENT_LIB)
-endif()
