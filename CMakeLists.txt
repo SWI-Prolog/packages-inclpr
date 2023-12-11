@@ -13,6 +13,7 @@ swipl_plugin(inclpr_priv
 	     PL_LIBS ${INCLPR_PRV})
 
 swipl_plugin(inclpr
+	     NOINDEX
 	     C_SOURCES inclpr.c
 	     PL_LIBS inclpr.pl)
 
