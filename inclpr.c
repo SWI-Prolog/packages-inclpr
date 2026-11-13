@@ -47,7 +47,7 @@ static foreign_t pl_ia_sum(term_t t1, term_t t2, term_t t3)
     struct i i3;
     if ( !p_to_c(t1,&i1) ||
 	 !p_to_c(t2,&i2) )
-      return FALSE;
+      return false;
     i3 = ia_sum(i1,i2);
     return c_to_p(i3,t3);
 }
@@ -61,7 +61,7 @@ static foreign_t pl_ia_sum_2(term_t t1l, term_t t1r, term_t t2l, term_t t2r,
 	 !PL_get_float(t1r,&(i1.r)) ||
 	 !PL_get_float(t2l,&(i2.l)) ||
 	 !PL_get_float(t2r,&(i2.r)) )
-      return FALSE;
+      return false;
     i3 = ia_sum(i1,i2);
     return ( PL_unify_float(t3l,i3.l) &&
 	     PL_unify_float(t3r,i3.r) );
@@ -73,7 +73,7 @@ static foreign_t pl_ia_difference(term_t t1, term_t t2, term_t t3)
     struct i i3;
     if ( !p_to_c(t1,&i1) ||
 	 !p_to_c(t2,&i2) )
-      return FALSE;
+      return false;
     i3 = ia_difference(i1,i2);
     return c_to_p(i3,t3);
 }
@@ -87,7 +87,7 @@ static foreign_t pl_ia_difference_2(term_t t1l, term_t t1r, term_t t2l, term_t t
 	 !PL_get_float(t1r,&(i1.r)) ||
 	 !PL_get_float(t2l,&(i2.l)) ||
 	 !PL_get_float(t2r,&(i2.r)) )
-      return FALSE;
+      return false;
     i3 = ia_difference(i1,i2);
     return (PL_unify_float(t3l,i3.l) &&
 	    PL_unify_float(t3r,i3.r));
@@ -99,7 +99,7 @@ static foreign_t pl_ia_product(term_t t1, term_t t2, term_t t3)
     struct i i3;
     if ( !p_to_c(t1,&i1) ||
 	 !p_to_c(t2,&i2) )
-      return FALSE;
+      return false;
     i3 = ia_product(i1,i2);
     return c_to_p(i3,t3);
 }
@@ -113,7 +113,7 @@ static foreign_t pl_ia_product_2(term_t t1l, term_t t1r, term_t t2l, term_t t2r,
 	 !PL_get_float(t1r,&(i1.r)) ||
 	 !PL_get_float(t2l,&(i2.l)) ||
 	 !PL_get_float(t2r,&(i2.r)) )
-      return FALSE;
+      return false;
     i3 = ia_product(i1,i2);
     return (PL_unify_float(t3l,i3.l) &&
 	    PL_unify_float(t3r,i3.r));
@@ -125,7 +125,7 @@ static foreign_t pl_ia_quotient(term_t t1, term_t t2, term_t t3)
     struct i i3;
     if ( !p_to_c(t1,&i1) ||
 	 !p_to_c(t2,&i2) )
-      return FALSE;
+      return false;
     i3 = ia_quotient(i1,i2);
     return c_to_p(i3,t3);
 }
@@ -139,7 +139,7 @@ static foreign_t pl_ia_quotient_2(term_t t1l, term_t t1r, term_t t2l, term_t t2r
 	 !PL_get_float(t1r,&(i1.r)) ||
 	 !PL_get_float(t2l,&(i2.l)) ||
 	 !PL_get_float(t2r,&(i2.r)) )
-      return FALSE;
+      return false;
     i3 = ia_quotient(i1,i2);
     return (PL_unify_float(t3l,i3.l) &&
 	    PL_unify_float(t3r,i3.r));
@@ -149,7 +149,7 @@ static foreign_t pl_ia_additive_inverse(term_t t1, term_t t2)
     struct i i1;
     struct i i2;
     if ( !p_to_c(t1,&i1) )
-      return FALSE;
+      return false;
     i2 = ia_additive_inverse(i1);
     return c_to_p(i2,t2);
 }
@@ -160,7 +160,7 @@ static foreign_t pl_ia_additive_inverse_2(term_t t1l, term_t t1r, term_t t2l,
     struct i i2;
     if ( !PL_get_float(t1l,&(i1.l)) ||
 	 !PL_get_float(t1r,&(i1.r)) )
-      return FALSE;
+      return false;
     i2 = ia_additive_inverse(i1);
     return (PL_unify_float(t2l,i2.l) &&
 	    PL_unify_float(t2r,i2.r));
@@ -171,14 +171,14 @@ static foreign_t pl_ia_power(term_t t1, term_t t2, term_t t3)
     struct i i2;
     if ( !p_to_c(t1,&i1) ||
 	 !p_to_c(t2,&i2) )
-      return FALSE;
+      return false;
     if (pos_int_canonical_interval(i2))
     {
 	int n = (int)i2.l;
 	struct i i3 = ia_power(i1,n);
 	return c_to_p(i3,t3);
     }
-    else return FALSE;
+    else return false;
 }
 static foreign_t pl_ia_power_2(term_t t1l, term_t t1r, term_t t2, term_t t3l,
     term_t t3r)
@@ -188,16 +188,16 @@ static foreign_t pl_ia_power_2(term_t t1l, term_t t1r, term_t t2, term_t t3l,
     if ( !PL_get_float(t1l,&(i1.l)) ||
 	 !PL_get_float(t1r,&(i1.r)) ||
 	 !PL_get_float(t2,&(exponent)) )
-      return FALSE;
+      return false;
     if (exponent >= 0 && trunc(exponent) == exponent)
     {
 	int exp = (int)exponent;
 	struct i i3 = ia_power(i1,exp);
 	return (PL_unify_float(t3l,i3.l) &&
 		PL_unify_float(t3r,i3.r));
-	return TRUE;
+	return true;
     }
-    else return FALSE;
+    else return false;
 }
 
 static foreign_t pl_ia_root(term_t t1, term_t t2, term_t t3)
@@ -206,14 +206,14 @@ static foreign_t pl_ia_root(term_t t1, term_t t2, term_t t3)
     struct i i2;
     if ( !p_to_c(t1,&i1) ||
 	 !p_to_c(t2,&i2) )
-      return FALSE;
+      return false;
     if (pos_int_canonical_interval(i2))
     {
 	int n = (int)i2.l;
 	struct i i3;
 	struct i i4;
 	int r = ia_root(i1,n,&i3,&i4);
-	if (r == 0) return FALSE;
+	if (r == 0) return false;
 	else if (r == 1)
 	{
 	    return c_to_p(i3,t3);
@@ -224,7 +224,7 @@ static foreign_t pl_ia_root(term_t t1, term_t t2, term_t t3)
 	    return c_to_p(i5,t3);
 	}
     }
-    return FALSE;
+    return false;
 }
 static foreign_t pl_ia_root_2(term_t t1l, term_t t1r, term_t t2, term_t t3l,
     term_t t3r)
@@ -234,14 +234,14 @@ static foreign_t pl_ia_root_2(term_t t1l, term_t t1r, term_t t2, term_t t3l,
     if ( !PL_get_float(t1l,&(i1.l)) ||
 	 !PL_get_float(t1r,&(i1.r)) ||
 	 !PL_get_float(t2,&(exponent)) )
-      return FALSE;
+      return false;
     if (exponent >= 0 && trunc(exponent) == exponent)
     {
 	int exp = (int)exponent;
 	struct i i3;
 	struct i i4;
 	int r = ia_root(i1,exp,&i3,&i4);
-	if (r == 0) return FALSE;
+	if (r == 0) return false;
 	else if (r == 1)
 	{
 	    return (PL_unify_float(t3l,i3.l) &&
@@ -254,7 +254,7 @@ static foreign_t pl_ia_root_2(term_t t1l, term_t t1r, term_t t2, term_t t3l,
 		    PL_unify_float(t3r,i5.r));
 	}
     }
-    else return FALSE;
+    else return false;
 }
 static foreign_t pl_ia_slope_power_2(term_t tuxl, term_t tuxr, term_t tucl,
     term_t tucr, term_t tk, term_t tsl, term_t tsr)
@@ -267,7 +267,7 @@ static foreign_t pl_ia_slope_power_2(term_t tuxl, term_t tuxr, term_t tucl,
 	 !PL_get_float(tucl,&(uc.l)) ||
 	 !PL_get_float(tucr,&(uc.r)) ||
 	 !PL_get_float(tk,&(fk)) )
-      return FALSE;
+      return false;
     if (fk >= 1 && trunc(fk) == fk)
     {
 	struct i s;
@@ -377,7 +377,7 @@ static foreign_t pl_ia_slope_power_2(term_t tuxl, term_t tuxr, term_t tucl,
 	    }
 	}
     }
-    return FALSE;
+    return false;
 }
 
 
@@ -389,20 +389,20 @@ static foreign_t pl_ia_quadratic_inverse(term_t a, term_t b, term_t c, term_t r)
     if ( !(p_to_c(a,&ia) &&
 	   p_to_c(b,&ib) &&
 	   p_to_c(c,&ic)) )
-      return FALSE;
+      return false;
     struct i ir1;
     struct i ir2;
     int roots = ia_quadratic_inverse(ia,ib,ic,&ir1,&ir2);
     switch (roots)
     {
 	case 0:
-	    return FALSE;
+	    return false;
 	case 1:
 	    return c_to_p(ir1,r);
 	case 2:
 	    return two_c_to_p(ir1,ir2,r);
     }
-    return FALSE;
+    return false;
 }
 
 static int pos_int_canonical_interval(struct i i1)
@@ -417,13 +417,13 @@ static foreign_t pl_ia_intersection(term_t t1, term_t t2, term_t t3)
     struct i i3;
     if ( !p_to_c(t1,&i1) ||
 	 !p_to_c(t2,&i2) )
-      return FALSE;
+      return false;
     i3 = ia_intersection(i1,i2);
     if (valid_interval(i3))
     {
 	return c_to_p(i3,t3);
     }
-    else return FALSE;
+    else return false;
 }
 static foreign_t pl_ia_intersection_2(term_t t1l, term_t t1r, term_t t2l, term_t t2r,
     term_t t3l, term_t t3r)
@@ -435,13 +435,13 @@ static foreign_t pl_ia_intersection_2(term_t t1l, term_t t1r, term_t t2l, term_t
 	 !PL_get_float(t1r,&(i1.r)) ||
 	 !PL_get_float(t2l,&(i2.l)) ||
 	 !PL_get_float(t2r,&(i2.r)) )
-      return FALSE;
+      return false;
     i3 = ia_intersection(i1,i2);
     if (valid_interval(i3))
     { return (PL_unify_float(t3l,i3.l) &&
 	      PL_unify_float(t3r,i3.r));
     }
-    else return FALSE;
+    else return false;
 }
 static foreign_t pl_ia_union(term_t t1, term_t t2, term_t t3)
 {
@@ -450,7 +450,7 @@ static foreign_t pl_ia_union(term_t t1, term_t t2, term_t t3)
     struct i i3;
     if ( !p_to_c(t1,&i1) ||
 	 !p_to_c(t2,&i2) )
-      return FALSE;
+      return false;
     i3 = ia_union(i1,i2);
     return c_to_p(i3,t3);
 }
@@ -464,7 +464,7 @@ static foreign_t pl_ia_union_2(term_t t1l, term_t t1r, term_t t2l, term_t t2r,
 	 !PL_get_float(t1r,&(i1.r)) ||
 	 !PL_get_float(t2l,&(i2.l)) ||
 	 !PL_get_float(t2r,&(i2.r)) )
-      return FALSE;
+      return false;
     i3 = ia_union(i1,i2);
     return (PL_unify_float(t3l,i3.l) &&
 	    PL_unify_float(t3r,i3.r));
@@ -474,10 +474,10 @@ static foreign_t pl_ia_split(term_t t1, term_t t2, term_t t3, term_t t4)
 {
     struct i i1;
     if ( !p_to_c(t1,&i1) )
-      return FALSE;
+      return false;
     double factor;
     if ( !PL_get_float(t2,&factor) )
-      return FALSE;
+      return false;
     if (finite_interval(i1) && factor > 0 && factor < 1)
     {
 	struct i i3;
@@ -486,14 +486,14 @@ static foreign_t pl_ia_split(term_t t1, term_t t2, term_t t3, term_t t4)
 	return (c_to_p(i3,t3) &&
 		c_to_p(i4,t4));
     }
-    else return FALSE;
+    else return false;
 }
 
 static foreign_t pl_ia_split_excluding_zero(term_t t1, term_t t2, term_t t3)
 {
     struct i i1;
     if ( !p_to_c(t1,&i1) )
-      return FALSE;
+      return false;
     if (contains(i1,0.0))
     {
 	struct i i2;
@@ -502,14 +502,14 @@ static foreign_t pl_ia_split_excluding_zero(term_t t1, term_t t2, term_t t3)
 	return (c_to_p(i2,t2) &&
 		c_to_p(i3,t3));
     }
-    else return FALSE;
+    else return false;
 }
 
 static foreign_t pl_ia_exclude_zero_bound(term_t t1, term_t t2)
 {
     struct i i1;
     if ( !p_to_c(t1,&i1) )
-      return FALSE;
+      return false;
     if (i1.l == 0 && i1.r > 0)
     {
 	struct i i2;
@@ -524,26 +524,26 @@ static foreign_t pl_ia_exclude_zero_bound(term_t t1, term_t t2)
 	i2.r = -0.0;
 	return c_to_p(i2,t2);
     }
-    else return FALSE;
+    else return false;
 }
 
 static foreign_t pl_ia_center(term_t t1, term_t t2)
 {
     struct i i1;
     if ( !p_to_c(t1,&i1) )
-      return FALSE;
+      return false;
     if (finite_interval(i1))
     {
 	struct i i2 = ia_center(i1);
 	return c_to_p(i2,t2);
     }
-    else return FALSE;
+    else return false;
 }
 static foreign_t pl_ia_negative_part(term_t t1, term_t t2)
 {
     struct i i1;
     if ( !p_to_c(t1,&i1) )
-      return FALSE;
+      return false;
     char c1 = ia_class(i1);
     struct i i2;
     switch (c1)
@@ -555,21 +555,21 @@ static foreign_t pl_ia_negative_part(term_t t1, term_t t2)
 	    i2.r = 0.0;
 	    return c_to_p(i2,t2);
 	case 'p':
-	    return FALSE;
+	    return false;
     }
-    return FALSE; // cannot happen
+    return false; // cannot happen
 }
 static foreign_t pl_ia_positive_part(term_t t1, term_t t2)
 {
     struct i i1;
     if ( !p_to_c(t1,&i1) )
-      return FALSE;
+      return false;
     char c1 = ia_class(i1);
     struct i i2;
     switch (c1)
     {
 	case 'n':
-	    return FALSE;
+	    return false;
 	case 'z':
 	    i2.l = -0.0;
 	    i2.r = i1.r;
@@ -577,14 +577,14 @@ static foreign_t pl_ia_positive_part(term_t t1, term_t t2)
 	case 'p':
 	    return c_to_p(i1,t2);
     }
-    return FALSE; // cannot happen
+    return false; // cannot happen
 }
 
 static foreign_t pl_ia_class(term_t t1, term_t t2)
 {
     struct i i1;
     if ( !p_to_c(t1,&i1) )
-      return FALSE;
+      return false;
     char c[2];
     c[0] = ia_class(i1);
     c[1] = 0;
@@ -595,12 +595,12 @@ static foreign_t pl_ia_contains(term_t t1, term_t t2)
 {
     struct i i1;
     if ( !p_to_c(t1,&i1) )
-      return FALSE;
+      return false;
     double d;
     if ( !PL_get_float(t2,&d) )
-      return FALSE;
-    if (contains(i1,d)) return TRUE;
-    else return FALSE;
+      return false;
+    if (contains(i1,d)) return true;
+    else return false;
 }
 
 // Data format conversion
@@ -614,7 +614,7 @@ static int c_to_p(struct i i, term_t t)
 
     if ( !PL_put_float(t1,i.l) ||
 	 !PL_put_float(t2,i.r) )
-      return FALSE;
+      return false;
     interval = PL_new_functor(PL_new_atom("i"),2);
     return (PL_cons_functor(t3,interval,t1,t2) &&
 	    PL_unify(t,t3));
@@ -627,7 +627,7 @@ static int two_c_to_p(struct i i1, struct i i2, term_t t)
     functor_t intunion;
     if ( !c_to_p(i1,t1) ||
 	 !c_to_p(i2,t2) )
-      return FALSE;
+      return false;
     intunion = PL_new_functor(PL_new_atom("u"),2);
     return (PL_cons_functor(t3,intunion,t1,t2) &&
 	    PL_unify(t,t3));
@@ -641,8 +641,8 @@ static int p_to_c(term_t t, struct i* i)
 	 !PL_get_arg(2,t,t2) ||
 	 !PL_get_float(t1,&(i->l)) ||
 	 !PL_get_float(t2,&(i->r)) )
-      return FALSE;
-    return TRUE;
+      return false;
+    return true;
 }
 
 
